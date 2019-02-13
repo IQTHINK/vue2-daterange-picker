@@ -21,38 +21,37 @@ npm i vue2-daterange-picker --save
 import DateRangePicker from 'vue2-daterange-picker'
 
 export default {
-    components: { DateRangePicker },
-    data() {
-        return {
-            startDate: '2017-09-05',
-            endDate: '2017-09-15',
-            locale: {
-                direction: 'ltr', //direction of text
-                format: 'DD-MM-YYYY', //fomart of the dates displayed
-                separator: ' - ', //separator between the two ranges
-                applyLabel: 'Apply',
-                cancelLabel: 'Cancel',
-                weekLabel: 'W',
-                customRangeLabel: 'Custom Range',
-                daysOfWeek: moment.weekdaysMin(), //array of days - see moment documenations for details
-                monthNames: moment.monthsShort(), //array of month names - see moment documenations for details
-                firstDay: 1 //ISO first day of week - see moment documenations for details
-            }
-        }
+  components: { DateRangePicker },
+  data() {
+    return {
+      startDate: '2017-09-05',
+      endDate: '2017-09-15',
+      locale: {
+        direction: 'ltr', //direction of text
+        format: 'DD-MM-YYYY', //fomart of the dates displayed
+        separator: ' - ', //separator between the two ranges
+        applyLabel: 'Apply',
+        cancelLabel: 'Cancel',
+        weekLabel: 'W',
+        customRangeLabel: 'Custom Range',
+        daysOfWeek: moment.weekdaysMin(), //array of days - see moment documenations for details
+        monthNames: moment.monthsShort(), //array of month names - see moment documenations for details
+        firstDay: 1 //ISO first day of week - see moment documenations for details
+      }
     }
+  }
 }
 ```
 
 ```html
 <template>
-    <date-range-picker 
-        :startDate="startDate" 
-        :endDate="endDate" 
-        @update="console.log(value)"
-        :locale-data="locale"
-    >
-    <!--Optional scope for the input displaying the dates -->
-    <div slot="input" slot-scope="picker">...</div>
+  <date-range-picker 
+    :startDate="startDate" 
+    :endDate="endDate" 
+    @update="console.log(value)"
+    :locale-data="locale">
+  <!--Optional scope for the input displaying the dates -->
+  <div slot="input" slot-scope="picker">...</div>
 </date-range-picker>
 </template>
 ```
@@ -75,18 +74,18 @@ See the demo source or the code snippet above for example.
  object :
  
 ```
-      let default_locale = {
-        direction: 'ltr', //direction of text
-        format: moment.localeData().longDateFormat('L'), //fomart of the dates displayed
-        separator: ' - ', //separator between the two ranges
-        applyLabel: 'Apply',
-        cancelLabel: 'Cancel',
-        weekLabel: 'W',
-        customRangeLabel: 'Custom Range',
-        daysOfWeek: moment.weekdaysMin(), //array of days - see moment documenations for details
-        monthNames: moment.monthsShort(), //array of month names - see moment documenations for details
-        firstDay: moment.localeData().firstDayOfWeek() //ISO first day of week - see moment documenations for details
-      }
+let default_locale = {
+  direction: 'ltr', //direction of text
+  format: moment.localeData().longDateFormat('L'), //fomart of the dates displayed
+  separator: ' - ', //separator between the two ranges
+  applyLabel: 'Apply',
+  cancelLabel: 'Cancel',
+  weekLabel: 'W',
+  customRangeLabel: 'Custom Range',
+  daysOfWeek: moment.weekdaysMin(), //array of days - see moment documenations for details
+  monthNames: moment.monthsShort(), //array of month names - see moment documenations for details
+  firstDay: moment.localeData().firstDayOfWeek() //ISO first day of week - see moment documenations for details
+}
 ```
 
 ## TODO
