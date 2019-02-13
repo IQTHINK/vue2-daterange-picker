@@ -1,9 +1,7 @@
 <template>
-    <td></td>
+  <td></td>
 </template>
 
 <script>
-    export default {
-
-    }
+  export default {}
 </script>
