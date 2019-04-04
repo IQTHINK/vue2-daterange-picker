@@ -5,9 +5,10 @@
         name="input"
         :startDate="start"
         :endDate="end"
+        :range="range"
         :ranges="ranges">
         <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>&nbsp;
-        <span>{{startText}} - {{endText}}</span>
+        <span>{{startText}} - {{endText}} - {{range}}</span>
         <b class="caret"></b>
       </slot>
     </div>
@@ -112,12 +113,16 @@ export default {
       type: Object,
       default () {
         return {
-          'Today': [moment(), moment()],
-          'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-          'This month': [moment().startOf('month'), moment().endOf('month')],
-          'This year': [moment().startOf('year'), moment().endOf('year')],
+          'Today': [moment().startOf('day'), moment().endOf('day')],
+          'This week': [moment().startOf('week'), moment().endOf('week')],
+          'Last 7 days': [moment().subtract(7, 'days'), moment()],
           'Last week': [moment().subtract(1, 'week').startOf('week'), moment().subtract(1, 'week').endOf('week')],
+          'This month': [moment().startOf('month'), moment().endOf('month')],
           'Last month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
+          'Last 3 months': [moment().subtract(3, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
+          'This year': [moment().startOf('year'), moment().endOf('year')],
+          'Last year': [moment().subtract(1, 'year').startOf('year'), moment().subtract(1, 'year').endOf('year')],
+          'All time': [moment().subtract(49, 'year').startOf('year'), moment()],
         }
       }
     },
@@ -167,18 +172,18 @@ export default {
       this.monthDate = prevMonth(this.monthDate)
     },
     dateClick (value) {
-      this.range = null
+      this.range = 'Custom Range'
       if (this.in_selection) {
         this.in_selection = false
-        this.end = new Date(value)
+        this.end = moment(value).endOf('day')
         if (this.end < this.start) {
           this.in_selection = true
-          this.start = new Date(value)
+          this.start = moment(value).startOf('day')
         }
       } else {
         this.in_selection = true
-        this.start = new Date(value)
-        this.end = new Date(value)
+        this.start = moment(value).startOf('day')
+        this.end = moment(value).endOf('day')
       }
     },
     hoverDate (value) {
@@ -199,7 +204,7 @@ export default {
     },
     clickedApply () {
       this.open = false
-      this.$emit('update', {startDate: this.start, endDate: this.end, range: this.range})
+      this.$emit('update', {startDate: new Date(this.start), endDate: new Date(this.end), range: this.range})
     },
     clickAway () {
       if (this.open) {

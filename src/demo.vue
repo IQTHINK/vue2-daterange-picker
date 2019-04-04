@@ -71,7 +71,7 @@
               @update="updateValues"
               :locale-data="{ firstDay: 1, format: 'DD-MM-YYYY' }">
               <div slot="input" slot-scope="picker">
-                {{ picker.startDate | date }} - {{ picker.endDate | date }}
+                {{ picker.startDate | date }} - {{ picker.endDate | date }} {{ picker.range }}
               </div>
             </date-range-picker>
           </div>
@@ -104,8 +104,9 @@ export default {
   methods: {
     updateValues (values) {
       console.log(values)
-      this.startDate = values.startDate.toISOString().slice(0, 10)
-      this.endDate = values.endDate.toISOString().slice(0, 10)
+      let options = {year: 'numeric', month: 'long', day: 'numeric'};
+      this.startDate = Intl.DateTimeFormat('en-US', options).format(values.startDate)
+      this.endDate = Intl.DateTimeFormat('en-US', options).format(values.endDate)
     }
   }
 }
